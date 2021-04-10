@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GradientMaterial
-  m_Shader: {fileID: 4800000, guid: 5a95b253789e00a409d1c7bb345dffe1, type: 3}
+  m_Name: Grayscale
+  m_Shader: {fileID: 4800000, guid: d6b3647ed87ba824dbb60e3bbdf1d606, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -64,8 +64,6 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
-    - _MiddleBot: 0.33
-    - _MiddleTop: 0.66
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -76,9 +74,5 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorBot: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorMidBot: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorMidTop: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorTop: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
