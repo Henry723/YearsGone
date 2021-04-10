@@ -65,10 +65,17 @@
                 fixed4 color = col * intensity;
 
                 float lum = 0.3 * color.r + 0.59 * color.g + 0.11 * color.b;
-                if (lum > 0.75) color = color * _Color1;
-                else if (lum > 0.5) color = color * _Color2;
-                else if (lum > 0.25) color = color * _Color3;
+
+
+                if (lum > 0.81) color = color * _Color1;
+                else if (lum > 0.74) color = color * ((_Color1 + _Color2) / 2);
+                else if (lum > 0.55) color = color * _Color2;
+                else if (lum > 0.48) color = color * ((_Color2 + _Color3) / 2);
+                else if (lum > 0.29) color = color * _Color3;
+                else if (lum > 0.22) color = color * ((_Color3 + _Color4) / 2);
                 else color = color * _Color4;
+
+
                 color = color + (_LightIntensity / distance(i.worldPosition, _LightPoint));
                 return color;
             }
