@@ -123,26 +123,35 @@ public class Player : MonoBehaviour
             int layerMask = 1 << 8;
             Debug.Log("Open Door");
             Debug.DrawRay(Camera.main.transform.position,Camera.main.transform.forward);
+
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward, out hit, Mathf.Infinity, layerMask)) {
                 inspectedObject = hit.collider.gameObject;
-                instantiatedObject = GameObject.Instantiate(inspectedObject);
 
-                instantiatedObject.transform.SetParent(inspectContainer.transform);
-                instantiatedObject.transform.localPosition = Vector3.zero;
-                instantiatedObject.transform.localRotation = Quaternion.identity;
+                if (inspectedObject.tag == "Door")
+                {
+                    inspectedObject.GetComponent<interaction_Door>().interactDoor();
+                }
+                else if (inspectedObject.tag == "Inspectable")
+                {
+                    instantiatedObject = GameObject.Instantiate(inspectedObject);
 
-                inspectedObject.SetActive(false);
+                    instantiatedObject.transform.SetParent(inspectContainer.transform);
+                    instantiatedObject.transform.localPosition = Vector3.zero;
+                    instantiatedObject.transform.localRotation = Quaternion.identity;
 
-                isInteracting = true;
-                fpsCamera.disabled = true;
-                inspectContainer.SetActive(true);
+                    inspectedObject.SetActive(false);
+
+                    isInteracting = true;
+                    fpsCamera.disabled = true;
+                    inspectContainer.SetActive(true);
+                }
             }
         }
 
         if (Input.GetButtonDown("Drop") && isInteracting) 
         {
-            inspectContainer.transform.rotation = Quaternion.identity;
+            inspectContainer.transform.localRotation = Quaternion.identity;
             inspectContainer.SetActive(false);
             fpsCamera.disabled = false;
             isInteracting = false;
