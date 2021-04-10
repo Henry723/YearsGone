@@ -6,6 +6,7 @@ public class interaction_Door : MonoBehaviour
 {
     public GameObject door;
     public bool isOpen;
+    public bool isLeft = false;
     public Vector3 left_openRotation;
     public Vector3 right_openRotation;
 
@@ -29,14 +30,31 @@ public class interaction_Door : MonoBehaviour
     public void interactDoor() {
         if (isOpen)
         {
-            isOpen = false;
-            door.transform.rotation *= Quaternion.Euler(-left_openRotation);
-            source.PlayOneShot(doorCloseClip);
+            if (isLeft)
+            {
+                isOpen = false;
+                door.transform.rotation *= Quaternion.Euler(-left_openRotation);
+                source.PlayOneShot(doorCloseClip);
+            }
+            else
+            {
+                isOpen = false;
+                door.transform.rotation *= Quaternion.Euler(-right_openRotation);
+                source.PlayOneShot(doorCloseClip);
+            }
         }
         else {
-            door.transform.rotation *= Quaternion.Euler(left_openRotation);
-            isOpen = true;
-            source.PlayOneShot(doorOpenClip);
+            if (isLeft)
+            {
+                door.transform.rotation *= Quaternion.Euler(left_openRotation);
+                isOpen = true;
+                source.PlayOneShot(doorOpenClip);
+            }
+            else {
+                door.transform.rotation *= Quaternion.Euler(right_openRotation);
+                isOpen = true;
+                source.PlayOneShot(doorOpenClip);
+            }
         }
     }
 }
