@@ -11,31 +11,27 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager GM;
 
-    private const float NO_FOG_VAL = 200;
-    private const float FOG_VAL = 15;
-    private const string FOG_END_S = "_FogEnd";
-    private const string AMBIENT = "_Ambient";
-    private const float DAY_VAL = 0f;
-    private const float NIGHT_VAL = -1;
-    private const string FILE_NAME = "/save.data";
-
     public GameObject player;
     public GameObject end;
     public GameObject floor;
-    public Text scoreText;
-    public int score = 0;
-    public int enemyHealth;
-    public float enemyRespawnTime = 5f;
+    public GameObject phone;
+
     public bool isDay;
     public bool isMusic = true;
 
-    private bool isFoggy;
-    private GameObject door;
-    private string prevScene;
-    private GameObject wallGroup;
+    public List<GameObject> important_Objects;
+    public List<AudioClip> obj_Audio;
+
+    //counter for how many significant objects have been interacted with
+    public int intr_Count = 0;
 
     void Awake()
     {
+        if (GM == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            GM = this;
+        }
     }
 
     private void Start()
@@ -44,9 +40,26 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-       
     }
 
+    public void checkObject(GameObject obj) {
+        for (int i = 0; i < important_Objects.Count; i++) {
+            if (obj.name.Equals(important_Objects[i].name)) {
+                intr_Count++;
+                important_Objects.RemoveAt(i);
+                GetComponent<AudioSource>().PlayOneShot(obj_Audio[0]);
+                if (intr_Count == 4) {
+                    StartCoroutine(phoneCoroutine(obj_Audio[0]));
+                }
+                break;
+            }
+        }
+    }
+
+    IEnumerator phoneCoroutine(AudioClip clip) {
+        yield return new WaitForSeconds(clip.length);
+        phone.SetActive(true);
+    }
     
  }
 
