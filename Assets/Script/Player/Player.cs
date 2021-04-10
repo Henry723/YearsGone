@@ -18,14 +18,16 @@ public class Player : MonoBehaviour
 
     private bool groundedPlayer;
     private bool noClip;
-    private bool isHittingWall = false;
-    private bool isInteracting = false;
-
+    public bool isInteracting = false;
+    public bool IsInteracting { get{ return isInteracting; } }
     //inspect stuff
     public FirstPersonCamera fpsCamera;
     public GameObject inspectContainer;
     public GameObject inspectedObject;
     public GameObject instantiatedObject;
+
+    public GameObject hoveredObject;
+    public Color objColor;
 
     private const int INTERACTABLE_LAYER = 8;
 
@@ -125,7 +127,7 @@ public class Player : MonoBehaviour
             Debug.DrawRay(Camera.main.transform.position,Camera.main.transform.forward);
 
             RaycastHit hit;
-            if (Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward, out hit, Mathf.Infinity, layerMask)) {
+            if (Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward, out hit, 2f, layerMask)) {
                 inspectedObject = hit.collider.gameObject;
 
                 if (inspectedObject.tag == "Door")
@@ -134,6 +136,9 @@ public class Player : MonoBehaviour
                 }
                 else if (inspectedObject.tag == "Inspectable")
                 {
+                    GameManager.GM.checkObject(inspectedObject);
+                    inspectedObject.GetComponent<highlight_obj>().resetColor();
+
                     instantiatedObject = GameObject.Instantiate(inspectedObject);
 
                     instantiatedObject.transform.SetParent(inspectContainer.transform);
@@ -160,35 +165,5 @@ public class Player : MonoBehaviour
             inspectedObject.SetActive(true);
             inspectedObject = null;
         }
-    }
-
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.tag == "enemy") {
-            Debug.Log("Hit enemy");
-            cc.enabled = false;
-            cc.enabled = true;
-        }
-
-        if (collider.gameObject.tag == "door")
-        {
-            isInteracting = true;
-        }
-        if (collider.gameObject.tag == "wall" && !isHittingWall)
-        {
-            isHittingWall = true;
-            wallHit.PlayOneShot(wallHit.clip);
-        }
-        
-    }
-
-    private void OnTriggerExit(Collider collider)
-    {
-        if (collider.gameObject.tag == "door")
-        {
-            isInteracting = false;
-        }
-        if (collider.gameObject.tag == "wall")
-            isHittingWall = false; Debug.Log("Not Hitting Wall");
     }
 }
