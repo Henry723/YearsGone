@@ -12,9 +12,8 @@ public class GameManager : MonoBehaviour
     public static GameManager GM;
 
     public GameObject player;
-    public GameObject end;
-    public GameObject floor;
     public GameObject phone;
+    public GameObject interactCanvas;
 
     public bool isDay;
     public bool isMusic = true;
@@ -47,10 +46,12 @@ public class GameManager : MonoBehaviour
             if (obj.name.Equals(important_Objects[i].name)) {
                 intr_Count++;
                 important_Objects.RemoveAt(i);
-                GetComponent<AudioSource>().PlayOneShot(obj_Audio[0]);
+                GetComponent<AudioSource>().PlayOneShot(obj_Audio[i]);
+
                 if (intr_Count == 4) {
-                    StartCoroutine(phoneCoroutine(obj_Audio[0]));
+                    StartCoroutine(phoneCoroutine(obj_Audio[i]));
                 }
+                obj_Audio.RemoveAt(i);
                 break;
             }
         }
