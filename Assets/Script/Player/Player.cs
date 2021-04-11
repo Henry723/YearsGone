@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
                 else if (inspectedObject.tag == "Inspectable")
                 {
                     GameManager.GM.checkObject(inspectedObject);
-                    inspectedObject.GetComponent<highlight_obj>().resetColor();
+                    //inspectedObject.GetComponent<highlight_obj>().resetColor();
 
                     instantiatedObject = GameObject.Instantiate(inspectedObject);
 
