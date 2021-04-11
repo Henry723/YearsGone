@@ -12,9 +12,8 @@ public class GameManager : MonoBehaviour
     public static GameManager GM;
 
     public GameObject player;
-    public GameObject end;
-    public GameObject floor;
     public GameObject phone;
+    public GameObject interactCanvas;
 
     public bool isDay;
     public bool isMusic = true;

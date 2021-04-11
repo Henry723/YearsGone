@@ -460,9 +460,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 757146205}
-  end: {fileID: 0}
-  floor: {fileID: 0}
   phone: {fileID: 2033799284}
+  interactCanvas: {fileID: 1142841241}
   isDay: 0
   isMusic: 1
   important_Objects:

@@ -20,13 +20,13 @@ public class highlight_obj : MonoBehaviour
 
     private void OnMouseOver()
     {
-        Debug.Log("Mouse");
         if (distToPlayer < 2.5f && !GameManager.GM.player.GetComponent<Player>().IsInteracting)
         {
-            GetComponent<Renderer>().material.color = Color.white;
+            //GetComponent<Renderer>().material.color = Color.white;
+            GameManager.GM.interactCanvas.SetActive(true);
         }
         else {
-            GetComponent<Renderer>().material.color = startColor;
+            GameManager.GM.interactCanvas.SetActive(false);
         }
     }
 
