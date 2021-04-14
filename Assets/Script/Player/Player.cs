@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public float jumpHeight = 1.0f;
     public float gravity = -9.81f;
     public float ballSpeed = 10f;
-
+    public float inspectFactor = 50.0f;
     private bool groundedPlayer;
     private bool noClip;
     public bool isInteracting = false;
@@ -92,7 +92,7 @@ public class Player : MonoBehaviour
     }
 
     private void InspectMovement() {
-        inspectContainer.transform.Rotate( 0, (Input.GetAxis("Look X") * 10.0f * Time.deltaTime), 0, Space.Self);
+        inspectContainer.transform.Rotate( 0, -(Input.GetAxis("Look X") * inspectFactor * Time.deltaTime), 0, Space.Self);
     } 
 
     private void Jump()
@@ -149,7 +149,10 @@ public class Player : MonoBehaviour
 
                     isInteracting = true;
                     fpsCamera.disabled = true;
+                    fpsCamera.unlockCursor();
                     inspectContainer.SetActive(true);
+                    GameManager.GM.enableCanvas();
+                    this.GetComponent<AudioSource>().Stop();
                 }
             }
         }
@@ -165,5 +168,16 @@ public class Player : MonoBehaviour
             inspectedObject.SetActive(true);
             inspectedObject = null;
         }
+    }
+
+    public void disableInspect() {
+        inspectContainer.transform.localRotation = Quaternion.identity;
+        inspectContainer.SetActive(false);
+        fpsCamera.disabled = false;
+        isInteracting = false;
+
+        Destroy(instantiatedObject);
+        inspectedObject.SetActive(true);
+        inspectedObject = null;
     }
 }

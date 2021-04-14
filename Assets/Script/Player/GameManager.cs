@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> important_Objects;
     public List<AudioClip> obj_Audio;
+    public AudioSource audioManager;
 
     //counter for how many significant objects have been interacted with
     public int intr_Count = 0;
@@ -60,6 +61,21 @@ public class GameManager : MonoBehaviour
     IEnumerator phoneCoroutine(AudioClip clip) {
         yield return new WaitForSeconds(clip.length);
         phone.SetActive(true);
+    }
+
+    public void enableCanvas() {
+        interactCanvas.SetActive(true);
+    }
+
+    public void disableCanvas() {
+        interactCanvas.SetActive(false);
+    }
+
+    public void onClickContinue() {
+        audioManager.Stop();
+        player.GetComponent<Player>().disableInspect();
+        disableCanvas();
+        Camera.main.GetComponent<FirstPersonCamera>().lockCursor();
     }
     
  }
