@@ -31,4 +31,12 @@ public class FirstPersonCamera : MonoBehaviour
             player.Rotate(Vector3.up * mouseX);
         }
     }
+
+    public void unlockCursor() {
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
+    public void lockCursor() {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }
