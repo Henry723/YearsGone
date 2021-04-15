@@ -16,6 +16,7 @@ public class CutsceneTrigger : MonoBehaviour
         {
             cinemachineCam.SetActive(true);
             playerCam.GetComponent<Camera>().enabled = false;
+            endScene.gameObject.SetActive(true);
             endScene.Play();
         }
     }

@@ -71,7 +71,6 @@ public class Player : MonoBehaviour
     {
         GroundCheck();
         Movement();
-        Jump();
         Gravity();
     }
 
@@ -94,14 +93,6 @@ public class Player : MonoBehaviour
     private void InspectMovement() {
         inspectContainer.transform.Rotate( 0, -(Input.GetAxis("Look X") * inspectFactor * Time.deltaTime), 0, Space.Self);
     } 
-
-    private void Jump()
-    {
-        if (Input.GetButton("Jump") && groundedPlayer)
-        {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
-        }
-    }
 
     private void GroundCheck()
     {
@@ -157,17 +148,17 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Drop") && isInteracting) 
-        {
-            inspectContainer.transform.localRotation = Quaternion.identity;
-            inspectContainer.SetActive(false);
-            fpsCamera.disabled = false;
-            isInteracting = false;
+        //if (Input.GetButtonDown("Drop") && isInteracting) 
+        //{
+        //    inspectContainer.transform.localRotation = Quaternion.identity;
+        //    inspectContainer.SetActive(false);
+        //    fpsCamera.disabled = false;
+        //    isInteracting = false;
 
-            Destroy(instantiatedObject);
-            inspectedObject.SetActive(true);
-            inspectedObject = null;
-        }
+        //    Destroy(instantiatedObject);
+        //    inspectedObject.SetActive(true);
+        //    inspectedObject = null;
+        //}
     }
 
     public void disableInspect() {

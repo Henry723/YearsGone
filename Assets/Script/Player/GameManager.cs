@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject phone;
     public GameObject interactCanvas;
+    public AudioSource bgMusic;
 
     public bool isDay;
     public bool isMusic = true;
@@ -40,6 +41,15 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.GM.GetComponent<AudioSource>().isPlaying)
+        {
+            bgMusic.volume = 0.25f;
+            Debug.Log(bgMusic.volume);
+        }
+        else {
+            Debug.Log("Higher");
+            bgMusic.volume = 1.0f;
+        }
     }
 
     public void checkObject(GameObject obj) {
@@ -48,7 +58,6 @@ public class GameManager : MonoBehaviour
                 intr_Count++;
                 important_Objects.RemoveAt(i);
                 GetComponent<AudioSource>().PlayOneShot(obj_Audio[i]);
-
                 if (intr_Count == 4) {
                     StartCoroutine(phoneCoroutine(obj_Audio[i]));
                 }
