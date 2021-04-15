@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
 
     Vector3 playerVelocity;
     private PlayerFootsteps playerFootsteps;
+    public CutsceneTrigger cutsceneTrigger;
 
     // Start is called before the first frame update
     void Start()
@@ -144,6 +145,10 @@ public class Player : MonoBehaviour
                     inspectContainer.SetActive(true);
                     GameManager.GM.enableCanvas();
                     this.GetComponent<AudioSource>().Stop();
+                }
+                else if (inspectedObject.tag == "Phone")
+                {
+                    cutsceneTrigger.EnableCutscene();
                 }
             }
         }

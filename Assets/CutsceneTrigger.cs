@@ -10,7 +10,7 @@ public class CutsceneTrigger : MonoBehaviour
     public GameObject cinemachineCam;
     public GameObject playerCam;
 
-    void OnMouseDown()
+    public void EnableCutscene()
     {
         if (Vector3.Distance(this.transform.position, player.transform.position) < 5 && GameObject.Find("PhoneRinging"))
         {
